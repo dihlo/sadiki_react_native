@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const TabIcon = ({selected, iconname}) => {
 	return (
-		  <Icon name={iconname} size={25}/>
+		  <Icon name={iconname} size={18}/>
 	)
 }
 

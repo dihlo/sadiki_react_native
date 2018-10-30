@@ -6,6 +6,7 @@ import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
 export default class CameraUnit extends Component {
+	
 	constructor(props) {
 		super(props);
 

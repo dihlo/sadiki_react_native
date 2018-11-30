@@ -7,9 +7,13 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, AppRegistry } from 'react-native';
-import { Button } from 'antd-mobile-rn';
+import {Platform, StyleSheet, Text, AppState, AsyncStorage} from 'react-native';
 import Routes  from './components/Router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import reducers from './reducers';
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,12 +22,56 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+const middleware = applyMiddleware(ReduxThunk);
+const store = createStore(reducers, {}, middleware);
+
+export default class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isStoreLoading: false,
+      store: store
+    };
+  }
+
+  componentWillMount() {
+    var self = this;
+    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+    this.setState({isStoreLoading: true});
+    AsyncStorage.getItem('completeStore').then((value)=>{
+        if(value && value.length){
+            let initialStore = JSON.parse(value)
+            self.setState({store: createStore(reducers, initialStore, middleware)});
+        }else{
+            self.setState({store: store});
+        }
+        self.setState({isStoreLoading: false});
+    }).catch((error)=>{
+        self.setState({store: store});
+        self.setState({isStoreLoading: false});
+    })
+  }
+
+  componentWillUnmount() {
+      AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  _handleAppStateChange(currentAppState) {
+      let storingValue = JSON.stringify(this.state.store.getState())
+      AsyncStorage.setItem('completeStore', storingValue);
+  }
+
   render() {
-    return (
-      <Routes />
-    );
+    if(this.state.isStoreLoading){
+      return <Text>Loading Store ...</Text>
+    }else{
+        return (
+        <Provider store={this.state.store}>
+          <Routes />
+        </Provider>
+        )
+    }
   }
 }
 

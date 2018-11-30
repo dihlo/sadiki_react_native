@@ -3,13 +3,27 @@ import { Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Pagination, WhiteSpace, WingBlank, Steps } from 'antd-mobile-rn';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {schedules} from '../actions';
 
-export default class Schedule extends Component {
+class Schedule extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {	
 		}
+
+		this.test = this.test.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.schedules();
+	}
+
+	test() {
+		data = this.props.data;
+		console.log(data);
 	}
 
 	render () {
@@ -18,24 +32,20 @@ export default class Schedule extends Component {
       nextText: '>',
     };
     const Step = Steps.Step;
+		const itemStep = this.props.data.map((id)=> <Step status="finish" title={id.Name} description={id.Date} />);
+
+		this.test();
 
 	return (
 	  <ScrollView>
 	  	<WhiteSpace />   
 	  	<WingBlank size="sm">
-	  		<Text style={{color: 'black', fontSize: 14}}>29.10.2018</Text>
+	  		<Text style={{color: 'black', fontSize: 14}}>123123213</Text>
 	  	</WingBlank>
 		<WhiteSpace />   	  	
 	  	<WingBlank size="sm">
 		    <Steps>
-		      <Step status="finish" title="Завтрак" description="8:30 - 9:30" />
-		      <Step status="finish" title="Рисование" description="9:30 - 11:00" />
-		      <Step status="process" title="Свободное время" description="11:00 - 13:00" />
-		      <Step status="wait" title="Обед" description="13:00 - 14:00" />
-		      <Step status="wait" title="Сон" description="14:00 - 15:00" />
-		      <Step status="wait" title="Свободное время" description="15:00 - 16:00" />
-		      <Step status="wait" title="Лепка" description="16:00 - 17:00" />
-		      <Step status="wait" title="Свободное время" description="17:00 - 18:00" />
+					{itemStep}
 		    </Steps>	  		
 	  	</WingBlank>
 	    <WhiteSpace /> 
@@ -44,3 +54,14 @@ export default class Schedule extends Component {
 	  </ScrollView>
 	)}
 }
+
+function mapStateToProps(state) {
+  const {data, loading} = state.schedules.schedulesData;
+  return {data, loading};
+}
+
+function matchDispatchToProps (dispatch) {
+  return bindActionCreators ({ schedules: schedules}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Schedule);

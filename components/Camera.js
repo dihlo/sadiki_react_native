@@ -43,7 +43,7 @@ export default class Camera extends Component {
 	render() {
 		return (
 		<ScrollView style={{backgroundColor: 'white'}}>
-			<CameraUnit cameraname="холл" videourl="http://www.streambox.fr/playlists/test_001/stream.m3u8"/>
+			<CameraUnit cameraname="большая" videourl="http://www.streambox.fr/playlists/test_001/stream.m3u8"/>
 			<CameraUnit cameraname="игровая" videourl="http://techslides.com/demos/sample-videos/small.mp4"/>
 			<CameraUnit cameraname="баня" videourl="http://www.streambox.fr/playlists/test_001/stream.m3u8"/>		
 		</ScrollView>	 

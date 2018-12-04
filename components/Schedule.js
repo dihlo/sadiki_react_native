@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Pagination, WhiteSpace, WingBlank, Steps } from 'antd-mobile-rn';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {schedules} from '../actions';

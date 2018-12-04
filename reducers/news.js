@@ -13,13 +13,7 @@ export default function (state=INITIAL_STATE, action) {
 		return state;
 		case "GET_NEWS_OK":
 		state.newsData.loading = false;
-		var arr = [];
-		for (var key in action.responseData) {
-			action.responseData[key].key = key;
-			action.responseData[key].id = action.responseData[key].id.$oid;
-			arr.push(action.responseData[key]);
-	    }
-	    state.newsData.data = arr;
+	    state.newsData.data = action.responseData;
 		return state;
 		case "GET_NEWS_ERROR":
 		state.newsData.loading = false;

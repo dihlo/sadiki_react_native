@@ -10,7 +10,7 @@ export const news = () => {
 
 		axios({
 		  method:'get',
-		  url:'http://saddev.s-vfu.ru/news',
+		  url:'http://sadikapi.s-vfu.ru/news',
 		})
 		  .then(function(response) {
 		  	console.log(response);

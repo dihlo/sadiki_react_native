@@ -4,8 +4,11 @@ import { Flex, WhiteSpace } from 'antd-mobile-rn';
 import { Actions } from 'react-native-router-flux';
 import Video from 'react-native-video';
 import CameraUnit from './CameraUnit';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {camera} from '../actions';
 
-export default class Camera extends Component {
+class Camera extends Component {
 	constructor(props) {
 		super(props);
 
@@ -40,12 +43,18 @@ export default class Camera extends Component {
 		this.setState({pausedText: 'Play', paused: true});
 	}
 
+	componentDidMount() {
+		this.props.camera();
+	}
+
+
 	render() {
+
+		const CameraOne = this.props.camdata.map((id)=> <CameraUnit cameraname={id.Location} videourl={id.Url}/>);
+
 		return (
 		<ScrollView style={{backgroundColor: 'white'}}>
-			<CameraUnit cameraname="большая" videourl="http://www.streambox.fr/playlists/test_001/stream.m3u8"/>
-			<CameraUnit cameraname="игровая" videourl="http://techslides.com/demos/sample-videos/small.mp4"/>
-			<CameraUnit cameraname="баня" videourl="http://www.streambox.fr/playlists/test_001/stream.m3u8"/>		
+			{CameraOne}
 		</ScrollView>	 
    );}
 }
@@ -62,3 +71,14 @@ const styles = StyleSheet.create({
 		right: 0,
 	},	
 })
+
+function mapStateToProps(state) {
+	const {camdata, loading} = state.camera.cameraData;
+	return {camdata, loading};
+  }
+  
+  function matchDispatchToProps (dispatch) {
+	return bindActionCreators ({ camera: camera}, dispatch)
+  }
+  
+  export default connect(mapStateToProps, matchDispatchToProps)(Camera);

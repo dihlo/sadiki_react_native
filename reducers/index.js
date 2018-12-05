@@ -16,6 +16,7 @@ import News from './news';
 import PostNews from './postnews';
 import PutNews from './putnews';
 import DeleteNews from './deletenews';
+import Camera from './camera';
 
 const allReducers = combineReducers ({
 	cars: CarsReducers,
@@ -34,7 +35,8 @@ const allReducers = combineReducers ({
 	news: News,
 	postnews: PostNews,
 	putnews: PutNews,
-	deletenews: DeleteNews,	
+	deletenews: DeleteNews,
+	camera: Camera,	
 });
 
 export default allReducers;

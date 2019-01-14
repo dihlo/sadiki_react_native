@@ -3,6 +3,7 @@ package com.dihlo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.react.ReactNativeHost;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
             new ReactVideoPackage(),
             new ReactVideoPackage(), 
           new VectorIconsPackage(),

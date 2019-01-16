@@ -16,6 +16,8 @@ import java.util.List;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import com.brentvatne.react.ReactVideoPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -30,11 +32,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFirebasePackage(),
-            new ReactVideoPackage(),
-            new ReactVideoPackage(), 
+          new RNFirebasePackage(),
+          new ReactVideoPackage(),
           new VectorIconsPackage(),
-          new ReactVideoPackage()
+          new ReactVideoPackage(),
+          new RNFirebaseAuthPackage()
       );
     }
 

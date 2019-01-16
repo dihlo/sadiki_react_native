@@ -5,7 +5,7 @@ import firebase from 'react-native-firebase';
 
 const successImageUri = 'https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803718_1280.png';
 
-export default class Auth extends Component {
+export default class PhoneAuthTest extends Component {
   constructor(props) {
     super(props);
     this.unsubscribe = null;
@@ -13,7 +13,7 @@ export default class Auth extends Component {
       user: null,
       message: '',
       codeInput: '',
-      phoneNumber: '+44',
+      phoneNumber: '+7',
       confirmResult: null,
     };
   }
@@ -70,7 +70,7 @@ export default class Auth extends Component {
     return (
       <View style={{ padding: 25 }}>
         <Text>Enter phone number:</Text>
-        <TextInput 
+        <TextInput
           autoFocus
           style={{ height: 40, marginTop: 15, marginBottom: 15 }}
           onChangeText={value => this.setState({ phoneNumber: value })}
@@ -114,7 +114,7 @@ export default class Auth extends Component {
     const { user, confirmResult } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <Text>123</Text>
+        
         {!user && !confirmResult && this.renderPhoneNumberInput()}
         
         {this.renderMessage()}

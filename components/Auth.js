@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { View, Button, Text, TextInput, Image } from 'react-native';
 
 import firebase from 'react-native-firebase';
+import { Actions } from 'react-native-router-flux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {postauth} from '../actions';
 
-const successImageUri = 'https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803718_1280.png';
-
-export default class PhoneAuthTest extends Component {
+class PhoneAuthTest extends Component {
   constructor(props) {
     super(props);
     this.unsubscribe = null;
@@ -39,22 +41,33 @@ export default class PhoneAuthTest extends Component {
      if (this.unsubscribe) this.unsubscribe();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const { user } = this.state;
+    if ((user == null) && (nextState.user)) {
+      
+      this.sendToken(nextState.user);
+    }
+    return true;
+  }
+
   signIn = () => {
     const { phoneNumber } = this.state;
     this.setState({ message: 'Sending code ...' });
 
     firebase.auth().signInWithPhoneNumber(phoneNumber)
-      .then(confirmResult => this.setState({ confirmResult, message: 'Code has been sent!' }))
+      .then(confirmResult => this.setState({ confirmResult, message: 'Код отправлен' }))
       .catch(error => this.setState({ message: `Sign In With Phone Number Error: ${error.message}` }));
   };
 
   confirmCode = () => {
-    const { codeInput, confirmResult } = this.state;
+    const { codeInput, confirmResult, phoneNumber } = this.state;
+
+    let sendobj = JSON.stringify({phoneNumber: phoneNumber, codeInput: codeInput});
 
     if (confirmResult && codeInput.length) {
       confirmResult.confirm(codeInput)
         .then((user) => {
-          this.setState({ message: 'Code Confirmed!' });
+          this.setState({ message: 'Код принят', user });          t     
         })
         .catch(error => this.setState({ message: `Code Confirm Error: ${error.message}` }));
     }
@@ -69,43 +82,43 @@ export default class PhoneAuthTest extends Component {
       
     return (
       <View style={{ padding: 25 }}>
-        <Text>Enter phone number:</Text>
+        <Text>Введите номер телефона</Text>
         <TextInput
           autoFocus
           style={{ height: 40, marginTop: 15, marginBottom: 15 }}
           onChangeText={value => this.setState({ phoneNumber: value })}
-          placeholder={'Phone number ... '}
+          placeholder={'номер телефона '}
           value={phoneNumber}
         />
-        <Button title="Sign In" color="green" onPress={this.signIn} />
+        <Button title="Войти" onPress={this.signIn} /*onPress={this.onPressSendPhoneNumber.bind(this)}*/ />
       </View>
     );
   }
-  
-  renderMessage() {
-    const { message } = this.state;
-  
-    if (!message.length) return null;
-  
-    return (
-      <Text style={{ padding: 5, backgroundColor: '#000', color: '#fff' }}>{message}</Text>
-    );
+
+  onPressSendPhoneNumber() {
+    Actions.cameratab();
   }
   
+  sendToken(user) {
+    const {phoneNumber, uid} = user;
+    const authSend = JSON.stringify({'UserPhone': phoneNumber, 'UserToken': uid});
+    this.props.postauth(authSend);
+  }
+
   renderVerificationCodeInput() {
     const { codeInput } = this.state;
   
     return (
       <View style={{ marginTop: 25, padding: 25 }}>
-        <Text>Enter verification code below:</Text>
+        <Text>Введите код:</Text>
         <TextInput
           autoFocus
           style={{ height: 40, marginTop: 15, marginBottom: 15 }}
           onChangeText={value => this.setState({ codeInput: value })}
-          placeholder={'Code ... '}
+          placeholder={'Код ... '}
           value={codeInput}
         />
-        <Button title="Confirm Code" color="#841584" onPress={this.confirmCode} />
+        <Button title="Послать" color="#841584" onPress={this.confirmCode.bind(this)} />
       </View>
     );
   }
@@ -116,9 +129,7 @@ export default class PhoneAuthTest extends Component {
       <View style={{ flex: 1 }}>
         
         {!user && !confirmResult && this.renderPhoneNumberInput()}
-        
-        {this.renderMessage()}
-        
+
         {!user && confirmResult && this.renderVerificationCodeInput()}
         
         {user && (
@@ -131,7 +142,6 @@ export default class PhoneAuthTest extends Component {
               flex: 1,
             }}
           >
-            <Image source={{ uri: successImageUri }} style={{ width: 100, height: 100, marginBottom: 25 }} />
             <Text style={{ fontSize: 25 }}>Signed In!</Text>
             <Text>{JSON.stringify(user)}</Text>
             <Button title="Sign Out" color="red" onPress={this.signOut} />
@@ -139,5 +149,16 @@ export default class PhoneAuthTest extends Component {
         )}
       </View>
     );
-  }
+  }  
 }
+
+function mapStateToProps(state) {
+  const {data, loading} = state.postauth.PostAuth;
+  return {data, loading};
+}
+
+function matchDispatchToProps (dispatch) {
+  return bindActionCreators ({ postauth: postauth}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(PhoneAuthTest);

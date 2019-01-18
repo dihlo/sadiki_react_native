@@ -13,7 +13,6 @@ export default function (state=INITIAL_STATE, action) {
 		return state;
 		case "GET_CAMERA_OK":
         state.cameraData.loading = false;
-        console.log("camera");
 	    state.cameraData.camdata = action.responseData;
 		return state;
 		case "GET_CAMERA_ERROR":

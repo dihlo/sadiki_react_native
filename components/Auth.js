@@ -95,14 +95,14 @@ class PhoneAuthTest extends Component {
     );
   }
 
-  onPressSendPhoneNumber() {
+  goToMain() {
     Actions.cameratab();
   }
   
   sendToken(user) {
     const {phoneNumber, uid} = user;
     const authSend = JSON.stringify({'UserPhone': phoneNumber, 'UserToken': uid});
-    this.props.postauth(authSend);
+    //this.props.postauth(authSend);
   }
 
   renderVerificationCodeInput() {
@@ -145,6 +145,9 @@ class PhoneAuthTest extends Component {
             <Text style={{ fontSize: 25 }}>Signed In!</Text>
             <Text>{JSON.stringify(user)}</Text>
             <Button title="Sign Out" color="red" onPress={this.signOut} />
+            <Text>{user.phoneNumber}</Text>
+            <Text>{user.uid}</Text>
+            <Button title="Войти" onPress={this.goToMain} />
           </View>
         )}
       </View>

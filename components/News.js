@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Image, Dimensions  } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { Pagination, WhiteSpace, WingBlank, List, Badge, Switch } from 'antd-mobile-rn';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -30,7 +29,7 @@ class News extends Component {
     const win = Dimensions.get('window');
 		const ratio = win.width/541;
 
-		const NewsOne = this.props.data.map((id)=> <NewsUnit newsimgurl="" newstitle={id.Title} newstext={id.Body} />);
+		const NewsOne = this.props.newsdata.map((id)=> <NewsUnit newsimgurl="" newstitle={id.Title} newstext={id.Body} />);		
 
 	return (
 	  <ScrollView>
@@ -38,7 +37,7 @@ class News extends Component {
 	  	<WingBlank size="sm">
 	  		<Text style={{color: 'black', fontSize: 14}}>29.10.2018</Text>
 	  	</WingBlank> 	
-			{NewsOne}			
+			{NewsOne}	
  	   	<Pagination total={5} current={1} locale={locale} />
 	   	<WhiteSpace />
 	  </ScrollView>
@@ -46,8 +45,9 @@ class News extends Component {
 }
 
 function mapStateToProps(state) {
-  const {data, loading} = state.news.newsData;
-  return {data, loading};
+	console.log(state.news.newsData)
+  const {newsdata, newsloading} = state.news.newsData;
+  return {newsdata, newsloading};
 }
 
 function matchDispatchToProps (dispatch) {

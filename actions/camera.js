@@ -3,7 +3,6 @@ import axios from 'axios';
 export const camera = () => {
 	console.log('Я в камера');
 	return (dispatch) => {
-		axios.defaults.headers.common = {};
 		dispatch({
 			type: "GET_CAMERA"
 		});

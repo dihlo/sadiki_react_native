@@ -39,20 +39,6 @@ export default class NewsUnit extends Component {
 				<List.Item>
 					<Badge text={0}><Text style={{color: 'black', fontSize: 14}}>{newstitle}</Text></Badge>
 				</List.Item>
-				<List.Item>
-					<TouchableOpacity onPress = {goToNewsFullText}>
-						<Image
-						style={{ 
-						flex: 1,
-						alignSelf: 'stretch',
-						width: '100%',
-						height: 362 * ratio,
-						}}
-						resizeMode={'contain'}  
-						  source={{uri: newsimgurl}}
-						/>
-					</TouchableOpacity>	
-				</List.Item>			
 	            <List.Item>
 	              	<Badge text={0}><Text>{newstext}</Text></Badge>
 	            </List.Item>

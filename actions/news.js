@@ -3,14 +3,13 @@ import axios from 'axios';
 export const news = () => {
 	console.log('Я в news');
 	return (dispatch) => {
-		axios.defaults.headers.common = {};
 		dispatch({
 			type: "GET_NEWS"
 		});
-
+		console.log(axios.defaults.headers)
 		axios({
 		  method:'get',
-		  url:'http://sadikapi.s-vfu.ru/news',
+		  url:'http://api.chukuruk.ru/api/v1/news',
 		})
 		  .then(function(response) {
 		  	console.log(response);

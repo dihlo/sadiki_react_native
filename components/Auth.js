@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Button, Text, TextInput, Image } from 'react-native';
-
+import axios from 'axios';
 import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {postauth} from '../actions';
+
 
 class PhoneAuthTest extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class PhoneAuthTest extends Component {
       codeInput: '',
       phoneNumber: '+7',
       confirmResult: null,
+      toGoinMain: null,
     };
   }
 
@@ -44,10 +46,20 @@ class PhoneAuthTest extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const { user } = this.state;
     if ((user == null) && (nextState.user)) {
-      
+      console.log("ya v should")
       this.sendToken(nextState.user);
     }
     return true;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.data !== this.props.data) {
+      console.log('izmennenie props');
+      console.log(this.props.data);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.props.data;
+        console.log(axios.defaults.headers.common);
+        this.setState({toGoinMain: true})
+    } 
   }
 
   signIn = () => {
@@ -98,11 +110,15 @@ class PhoneAuthTest extends Component {
   goToMain() {
     Actions.cameratab();
   }
+
+  goToAuth() {
+    Actions.auth()
+  }
   
   sendToken(user) {
     const {phoneNumber, uid} = user;
-    const authSend = JSON.stringify({'UserPhone': phoneNumber, 'UserToken': uid});
-    //this.props.postauth(authSend);
+    const authSend = JSON.stringify({'user_phone': phoneNumber, 'user_token': uid});
+    this.props.postauth(authSend);    
   }
 
   renderVerificationCodeInput() {
@@ -124,7 +140,7 @@ class PhoneAuthTest extends Component {
   }
 
   render() {
-    const { user, confirmResult } = this.state;
+    const { user, confirmResult, toGoinMain} = this.state;
     return (
       <View style={{ flex: 1 }}>
         
@@ -133,23 +149,15 @@ class PhoneAuthTest extends Component {
         {!user && confirmResult && this.renderVerificationCodeInput()}
         
         {user && (
-          <View
-            style={{
-              padding: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#77dd77',
-              flex: 1,
-            }}
-          >
-            <Text style={{ fontSize: 25 }}>Signed In!</Text>
-            <Text>{JSON.stringify(user)}</Text>
+          <View>
+            <View style={{paddingTop:50}}></View>
             <Button title="Sign Out" color="red" onPress={this.signOut} />
-            <Text>{user.phoneNumber}</Text>
-            <Text>{user.uid}</Text>
+            <View style={{paddingTop:50}}></View>
             <Button title="Войти" onPress={this.goToMain} />
           </View>
         )}
+
+        
       </View>
     );
   }  

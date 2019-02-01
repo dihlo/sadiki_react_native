@@ -12,7 +12,7 @@ export const postnews = (data) => {
 
 		axios({
 		  method:'post',
-		  url:'http://saddev.s-vfu.ru/news',
+		  url:'http://api.chukuruk.ru/api/v1/news',
 		  data: data
 		})
 		  .then(function(response) {

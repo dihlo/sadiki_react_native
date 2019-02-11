@@ -3,7 +3,6 @@ import axios from 'axios';
 export const meals = () => {
 	console.log('Я в то апи');
 	return (dispatch) => {
-		axios.defaults.headers.common = {};
 		dispatch({
 			type: "GET_MEALS"
 		});

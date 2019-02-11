@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 
 export const postauth = (data) => {
+	console.log(data);
 	return (dispatch) => {
-		axios.defaults.headers.common = {};
 		dispatch({
 			type: "POST_AUTH"
 		});
@@ -16,7 +17,9 @@ export const postauth = (data) => {
 					dispatch({
 					type: "POST_AUTH_OK",
 					responseData: response.data.token,
-				});
+					});
+					axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+					Actions.cameratab();
 		  })
 		  .catch(function (error) {
 			console.log(error)  

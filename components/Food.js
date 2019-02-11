@@ -15,6 +15,17 @@ export default class Food extends Component {
 
 
 	render () {
+		// Return today date and time
+		let currentTime = new Date();
+		let month = currentTime.getMonth() + 1;
+		let day = currentTime.getDate();
+		var year = currentTime.getFullYear(); 
+		if( day < 10) {
+			day = "0" + day.toString();			
+		}
+		if( month < 10) {
+			month = "0" + month.toString();			
+		}
 
     const locale = {
       prevText: '<',
@@ -25,7 +36,7 @@ export default class Food extends Component {
 	  <ScrollView>
 	  	<WhiteSpace />   
 	  	<WingBlank size="sm">
-	  		<Text style={{color: 'black', fontSize: 14}}>29.10.2018</Text>
+	  		<Text style={{color: 'black', fontSize: 14}}>{day + "." + month + "." + year}</Text>
 	  	</WingBlank>
 	    <WhiteSpace />       
 	    <WingBlank size="sm">
@@ -39,7 +50,7 @@ export default class Food extends Component {
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Компот малиновый 250 г.</Text>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Хлеб 20 г.</Text>
 		      </Card.Body>
-		      <Card.Footer content="Колорийность" extra={<Text>500 ккал</Text>} />
+		      <Card.Footer content="Калорийность" extra={<Text>500 ккал</Text>} />
 		    </Card>
 	    </WingBlank>
 	    <WhiteSpace size="sm" />
@@ -47,13 +58,13 @@ export default class Food extends Component {
 		    <Card full>
 		      <Card.Header
 		        title="Полдник"
-		        thumb={<Icon name="ios-beer" size={25} color="#FF9933" style={{paddingRight: 10 }}/>}		        
+		        thumb={<Icon name="ios-restaurant" size={25} color="#FF9933" style={{paddingRight: 10 }}/>}		        
 		      />
 		      <Card.Body>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Яблоко 150 г.</Text>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Булочка 250 г.</Text>
 		      </Card.Body>
-		      <Card.Footer content="Колорийность" extra={<Text>500 ккал</Text>} />
+		      <Card.Footer content="Калорийность" extra={<Text>500 ккал</Text>} />
 		    </Card>
 	    </WingBlank>
 	    <WhiteSpace size="sm" />
@@ -61,19 +72,31 @@ export default class Food extends Component {
 		    <Card full>
 		      <Card.Header
 		        title="Обед"
-		        thumb={<Icon name="md-nutrition" size={25} color="#FF9933" style={{paddingRight: 10 }}/>}		        
+		        thumb={<Icon name="ios-restaurant" size={25} color="#FF9933" style={{paddingRight: 10 }}/>}		        
 		      />
 		      <Card.Body>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Суп борщ 150 г.</Text>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Котлета 250 г.</Text>
 		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Хлеб 20 г.</Text>
 		      </Card.Body>
-		      <Card.Footer content="Колорийность" extra={<Text>500 ккал</Text>} />
+		      <Card.Footer content="Калорийность" extra={<Text>500 ккал</Text>} />
 		    </Card>
 	    </WingBlank>
-	    <WhiteSpace size="sm" />
-	    <Pagination total={5} current={1} locale={locale} />
-	    <WhiteSpace />  
+			<WhiteSpace size="sm" />
+			<WingBlank size="sm">
+		    <Card full>
+		      <Card.Header
+		        title="Ужин"
+		        thumb={<Icon name="ios-restaurant" size={25} color="#FF9933" style={{paddingRight: 10 }}/>}		        
+		      />
+		      <Card.Body>
+		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Макароны 150 г.</Text>
+		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Сосиска 250 г.</Text>
+		        <Text style={{fontSize: 18, paddingLeft: 15, color: 'black'}}>Хлеб 20 г.</Text>
+		      </Card.Body>
+		      <Card.Footer content="Калорийность" extra={<Text>500 ккал</Text>} />
+		    </Card>
+	    </WingBlank>
 	  </ScrollView>
 	)}
 }

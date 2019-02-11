@@ -52,7 +52,7 @@ class PhoneAuthTest extends Component {
     return true;
   }
 
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
     if(nextProps.data !== this.props.data) {
       console.log('izmennenie props');
       console.log(this.props.data);
@@ -60,7 +60,7 @@ class PhoneAuthTest extends Component {
         console.log(axios.defaults.headers.common);
         this.setState({toGoinMain: true})
     } 
-  }
+  }*/
 
   signIn = () => {
     const { phoneNumber } = this.state;
@@ -118,6 +118,7 @@ class PhoneAuthTest extends Component {
   sendToken(user) {
     const {phoneNumber, uid} = user;
     const authSend = JSON.stringify({'user_phone': phoneNumber, 'user_token': uid});
+    console.log(authSend);
     this.props.postauth(authSend);    
   }
 
@@ -164,8 +165,8 @@ class PhoneAuthTest extends Component {
 }
 
 function mapStateToProps(state) {
-  const {data, loading} = state.postauth.PostAuth;
-  return {data, loading};
+  const {data, loading, token} = state.postauth.PostAuth;
+  return {data, loading, token};
 }
 
 function matchDispatchToProps (dispatch) {

@@ -64,11 +64,11 @@ export default class CameraUnit extends Component {
 						onBuffer={this.onBuffer}                // Callback when remote video is buffering
 						onError={this.videoError}               // Callback when video cannot be loaded
 						style={styles.backgroundVideo}
-						navigator={ this.props.navigator }
+						navigator={this.props.navigator}
 						controlTimeout={1500}
 						showOnStart={false}	
 						disableSeekbar	
-						disableBack				
+						disableBack	 			
 						/>
 				</TouchableWithoutFeedback>	 	
 			</View>

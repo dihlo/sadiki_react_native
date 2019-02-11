@@ -50,11 +50,11 @@ class Camera extends Component {
 
 	render() {
 
-		const CameraOne = this.props.camdata.map((id)=> <CameraUnit cameraname={id.Location} videourl={id.Url}/>);
-
+		/*const CameraOne = this.props.camdata.map((id)=> <CameraUnit cameraname={id.Location} videourl={id.Url}/>);
+*/
 		return (
 		<ScrollView style={{backgroundColor: 'white'}}>
-			{CameraOne}
+			<CameraUnit cameraname={"Игровая"} videourl={"http://www.streambox.fr/playlists/test_001/stream.m3u8"}/>
 		</ScrollView>	 
    );}
 }

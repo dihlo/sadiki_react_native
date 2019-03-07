@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback, WebView, Dimensions  } from 'react-native';
 import { Flex, WhiteSpace } from 'antd-mobile-rn';
 import { Actions } from 'react-native-router-flux';
 import Video from 'react-native-video';
@@ -42,43 +42,36 @@ export default class CameraUnit extends Component {
 	}
 
 	render() {
-		const {videourl} = this.props
+		const {videourl} = this.props;
+		
+		const win = Dimensions.get('window');
+
+		const ratio = win.width/541;
+
+		const newWinwidth = win.width - 20;
+		const newWinheight = win.width/1.8;
+
+
+
 		return (
-		<View style={styles.bigcontainer}>
+		<View>
 			<View style={styles.container}>
 				<Text style = {{ textAlign: 'center', fontSize:14, margin:10 }}>Камера {this.props.cameraname}</Text>
 				<TouchableWithoutFeedback onPress={() => this.setState({paused: !this.state.paused})}>
-					<VideoPlayer source={{uri: videourl}}   // Can be a URL or a local file.
-						ref={(ref) => {
-						this.player = ref
-						}} 
-						repeat={this.state.repeat} 
-						rate={this.state.rate} 
-						volume={this.state.volume} 
-						muted={this.state.muted} 
-						resizeMode={this.state.resizeMode}
-						paused={this.state.paused}
-						onLoad={this.onLoad} 
-						onProgress={this.onProgress}
-						onEnd={this.onEnd}					                                  
-						onBuffer={this.onBuffer}                // Callback when remote video is buffering
-						onError={this.videoError}               // Callback when video cannot be loaded
-						style={styles.backgroundVideo}
-						navigator={this.props.navigator}
-						controlTimeout={1500}
-						showOnStart={false}	
-						disableSeekbar	
-						disableBack	 			
-						/>
-				</TouchableWithoutFeedback>	 	
+					<WebView
+						source={{html: '<iframe src="https://open.ivideon.com/embed/v2/?server=100-e0kE14gOCLccUtJjLFMWSe&amp;camera=0&amp;width=&amp;height=&amp;lang=en" width="' + newWinwidth + '"  height="' + newWinheight + '" frameborder="0" allowfullscreen></iframe>'}}						
+					/>
+				</TouchableWithoutFeedback>	
 			</View>
 		</View>	 
    );}
 }
 
+
+
 const styles = StyleSheet.create({
 	container: {
-		height: 200,
+		height: 300,
 	},
 	backgroundVideo: {
 		position: 'absolute',

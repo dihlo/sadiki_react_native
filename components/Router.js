@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const TabIcon = ({selected, iconname}) => {
 	return (
-		  <Icon name={iconname} size={18}/>
+		  <Icon name={iconname} style={{color: 'black'}} size={18}/>
 	)
 }
 
@@ -20,7 +20,21 @@ const Routes = () => (
 	   <Scene key="root">
 	   	  <Scene key="auth" component={Auth} initial = {true}></Scene>
 	      <Scene hideNavBar = "true">
-	      	 <Stack key = "tabbar" tabs activeTintColor="black" tabBarStyle={{background: '#FFFFFF'}}>
+	           <Stack key = "tabbar" 
+				   tabs={true} 
+				   activeBackgroundColor="#f7f7f7" 
+				   activeTintColor="black"
+				   inactiveTintColor="#848484"
+				   tabBarStyle={{backgroundColor: 'white'}}
+				   tabStyle={{
+						width: '100%',
+						height: '100%',
+						color: 'black',                        
+					}}
+					swipeEnabled={false}
+					animationEnabled={false}
+					panHandlers={null}
+				>
 	      	 	<Scene key = "cameratab" title="Камеры" iconname="videocamera" icon={TabIcon}>
 			      	 <Scene key = "camera" component = {Camera} title = "Камеры" />
 		        </Scene>

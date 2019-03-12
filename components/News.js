@@ -32,7 +32,7 @@ class News extends Component {
 		const NewsOne = this.props.newsdata.map((id)=> <NewsUnit newsimgurl="" newstitle={id.Title} newstext={id.Body} />);		
 
 	return (
-	  <ScrollView>
+	  <ScrollView style={{backgroundColor: 'white'}}>
 	  	<WhiteSpace />   
 	  	<WingBlank size="sm">
 	  		<Text style={{color: 'black', fontSize: 14}}>29.10.2018</Text>

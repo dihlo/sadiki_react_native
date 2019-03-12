@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { Flex, WhiteSpace } from 'antd-mobile-rn';
 import { Actions } from 'react-native-router-flux';
-import Video from 'react-native-video';
 import CameraUnit from './CameraUnit';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

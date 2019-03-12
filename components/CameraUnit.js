@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback, WebView, Dimensions  } from 'react-native';
 import { Flex, WhiteSpace } from 'antd-mobile-rn';
 import { Actions } from 'react-native-router-flux';
-import Video from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls';
 
 export default class CameraUnit extends Component {
 	
@@ -56,12 +54,15 @@ export default class CameraUnit extends Component {
 		return (
 		<View>
 			<View style={styles.container}>
-				<Text style = {{ textAlign: 'center', fontSize:14, margin:10 }}>Камера {this.props.cameraname}</Text>
-				<TouchableWithoutFeedback onPress={() => this.setState({paused: !this.state.paused})}>
+				<Text style = {{ textAlign: 'center', fontSize:14, margin:10, color: 'black' }}>Камера {this.props.cameraname}</Text>
+				<TouchableWithoutFeedback  style={{ borderRadius: 4, borderWidth: 3, borderColor: 'black',}} onPress={() => this.setState({paused: !this.state.paused})}>
 					<WebView
-						source={{html: '<iframe src="https://open.ivideon.com/embed/v2/?server=100-e0kE14gOCLccUtJjLFMWSe&amp;camera=0&amp;width=&amp;height=&amp;lang=en" width="' + newWinwidth + '"  height="' + newWinheight + '" frameborder="0" allowfullscreen></iframe>'}}						
+						source={{html: '<iframe src="https://www.youtube.com/embed/o_RcbNmzFC0" width="' + newWinwidth + '"  height="' + newWinheight + '" frameborder="0" allowfullscreen></iframe>'}}                        
 					/>
-				</TouchableWithoutFeedback>	
+				</TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => this.setState({paused: !this.state.paused})}>
+                    <Text style={{ color: 'black', textAlign: 'center' }}>Во весь экран</Text>
+                </TouchableWithoutFeedback>	
 			</View>
 		</View>	 
    );}

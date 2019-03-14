@@ -7,6 +7,7 @@ import News from './News.js';
 import Schedule from './Schedule.js';
 import NewsFullText from './NewsFullText.js';
 import Auth from './Auth.js';
+import FullScreen from './FullScreen.js';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const TabIcon = ({selected, iconname}) => {
@@ -19,6 +20,7 @@ const Routes = () => (
    <Router>
 	   <Scene key="root">
 	   	  <Scene key="auth" component={Auth} initial = {true}></Scene>
+		  <Scene hideNavBar="true" key="FullScreen" component={FullScreen}></Scene>
 	      <Scene hideNavBar = "true">
 	           <Stack key = "tabbar" 
 				   tabs={true} 
@@ -37,6 +39,7 @@ const Routes = () => (
 				>
 	      	 	<Scene key = "cameratab" title="Камеры" iconname="videocamera" icon={TabIcon}>
 			      	 <Scene key = "camera" component = {Camera} title = "Камеры" />
+						<Scene key="fullscreen" component={FullScreen}></Scene>  
 		        </Scene>
 	      	 	<Scene key = "foodtab" title="Питание" iconname="rest" icon={TabIcon}>
 			         <Scene key = "food" component = {Food} title = "Питание" />

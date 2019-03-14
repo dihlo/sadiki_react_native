@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback, WebView, Dimensions  } from 'react-native';
-import { Flex, WhiteSpace } from 'antd-mobile-rn';
+import { TouchableOpacity, Text, View, StyleSheet, TouchableWithoutFeedback, WebView, Dimensions} from 'react-native';
+import { Flex, WhiteSpace, Button } from 'antd-mobile-rn';
 import { Actions } from 'react-native-router-flux';
 
 export default class CameraUnit extends Component {
@@ -39,6 +39,7 @@ export default class CameraUnit extends Component {
 		this.setState({pausedText: 'Play', paused: true});
 	}
 
+
 	render() {
 		const {videourl} = this.props;
 		
@@ -49,21 +50,24 @@ export default class CameraUnit extends Component {
 		const newWinwidth = win.width - 20;
 		const newWinheight = win.width/1.8;
 
-
-
+		const goToFullScreen = () => {
+			console.log("tuta"); 
+			Actions.FullScreen();
+		}
 		return (
 		<View>
 			<View style={styles.container}>
 				<Text style = {{ textAlign: 'center', fontSize:14, margin:10, color: 'black' }}>Камера {this.props.cameraname}</Text>
-				<TouchableWithoutFeedback  style={{ borderRadius: 4, borderWidth: 3, borderColor: 'black',}} onPress={() => this.setState({paused: !this.state.paused})}>
-					<WebView
-						source={{html: '<iframe src="https://www.youtube.com/embed/o_RcbNmzFC0" width="' + newWinwidth + '"  height="' + newWinheight + '" frameborder="0" allowfullscreen></iframe>'}}                        
-					/>
+				<TouchableWithoutFeedback onPress={() => this.setState({paused: !this.state.paused})}>
+					<View style={{height: newWinheight}}>
+						<WebView
+							source={{html: '<iframe src="https://www.youtube.com/embed/o_RcbNmzFC0" width="' + newWinwidth + '"  height="' + newWinheight + '" frameborder="0" allowfullscreen></iframe>'}}                        
+						/>
+					</View>
 				</TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => this.setState({paused: !this.state.paused})}>
-                    <Text style={{ color: 'black', textAlign: 'center' }}>Во весь экран</Text>
-                </TouchableWithoutFeedback>	
+				<Button uri={"https://www.youtube.com/embed/o_RcbNmzFC0"} type="ghost" inline size="small" style={{ margin: 10 }} onClick={goToFullScreen}>Во весь экран</Button>
 			</View>
+			<WhiteSpace/>
 		</View>	 
    );}
 }

@@ -33,7 +33,7 @@ export default class Food extends Component {
     };
 
 	return (
-	  <ScrollView style={{backgroundColor: 'white'}}>
+	  <ScrollView style={{backgroundColor: '#f7f7f7'}}>
 	  	<WhiteSpace />   
 	  	<WingBlank size="sm">
 	  		<Text style={{color: 'black', fontSize: 14}}>{day + "." + month + "." + year}</Text>

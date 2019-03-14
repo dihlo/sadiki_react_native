@@ -6,6 +6,7 @@ import CameraUnit from './CameraUnit';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {camera} from '../actions';
+import Orientation from 'react-native-orientation';
 
 class Camera extends Component {
 	constructor(props) {
@@ -43,6 +44,7 @@ class Camera extends Component {
 	}
 
 	componentDidMount() {
+		Orientation.lockToPortrait();
 		this.props.camera();
 	}
 

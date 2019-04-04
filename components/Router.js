@@ -8,6 +8,8 @@ import Schedule from './Schedule.js';
 import NewsFullText from './NewsFullText.js';
 import Auth from './Auth.js';
 import FullScreen from './FullScreen.js';
+import PrivacyPolicy from './PrivacyPolicy.js';
+import TermsOfUse from './TermsOfUse.js';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const TabIcon = ({selected, iconname}) => {
@@ -20,6 +22,8 @@ const Routes = () => (
    <Router>
 	   <Scene key="root">
 	   	  <Scene key="auth" component={Auth} initial = {true}></Scene>
+		  <Scene key="privacypolicy" component={PrivacyPolicy}></Scene>
+		  <Scene key="termsofuse" component={TermsOfUse}></Scene>
 		  <Scene hideNavBar="true" key="FullScreen" component={FullScreen}></Scene>
 	      <Scene hideNavBar = "true">
 	           <Stack key = "tabbar" 

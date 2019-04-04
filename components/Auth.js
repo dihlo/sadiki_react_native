@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Button, Text, TextInput, Image } from 'react-native';
-import axios from 'axios';
+import { View, Button, Text, TextInput, TouchableWithoutFeedback } from 'react-native';
 import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {postauth} from '../actions';
+import {WhiteSpace} from 'antd-mobile-rn';
 
 
 class PhoneAuthTest extends Component {
@@ -103,6 +103,18 @@ class PhoneAuthTest extends Component {
           value={phoneNumber}
         />
         <Button title="Войти" onPress={this.signIn} /*onPress={this.onPressSendPhoneNumber.bind(this)}*/ />
+        <WhiteSpace />
+        <WhiteSpace />
+        <WhiteSpace />
+        <WhiteSpace />        
+        <TouchableWithoutFeedback onPress={() => Actions.privacypolicy()}>
+          <Text style={{textAlign: 'center', color: 'blue'}}>Privacy Policy</Text>
+        </TouchableWithoutFeedback>
+        <WhiteSpace />
+        <WhiteSpace />
+        <TouchableWithoutFeedback onPress={() => Actions.termsofuse()}>
+          <Text style={{textAlign: 'center', color: 'blue'}}>Terms of Use</Text>
+        </TouchableWithoutFeedback>           
       </View>
     );
   }
